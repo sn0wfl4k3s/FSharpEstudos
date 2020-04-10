@@ -110,5 +110,75 @@ let main argv =
     printfn "%A" mapeado
 
 
+    let sequencia = seq { 0 .. 10 .. 100 }
+    printfn "%A" sequencia
+
+    let array = [|1..10|] :> seq<int>
+
+
+
+
+    let fullList = [1..100]
+    let smallSlice = fullList.[65..]
+    printfn "%A" smallSlice
+
+
+
+
+    let validateName req =
+        match req.Name with
+        | null -> Error "No name found."
+        | "" -> Error "Name is empty."
+        | "bananas" -> Error "Bananas is not a name."
+        | _ -> Ok req
+    let validateEmail req =
+        match req.Email with
+        | null -> Error "No email found."
+        | "" -> Error "Email is empty."
+        | s when s.EndsWith("bananas.com") -> Error "No email from bananas.com is allowed."
+        | _ -> Ok req
+    
+    let validateRequest reqResult =
+        reqResult
+        |> Result.bind validateName
+        |> Result.bind validateEmail
+    
+    let test() =
+        let req1 = { Name = "Phillip"; Email = "phillip@contoso.biz" }
+        let res1 = validateRequest (Ok req1)
+        match res1 with
+        | Ok req -> printfn "My request was valid! Name: %s Email %s" req.Name req.Email
+        | Error e -> printfn "Error: %s" e
+
+    test()
+
+
+
+
+    let retangulo = Rectangle(10.0, 20.0)
+
+    let getShapeWidth shape =
+        match shape with
+        | Rectangle(width = w) -> w
+        | Circle(radius = r) -> 2. * r
+        | Prism(width = w) -> w
+
+    printfn "%A" (getShapeWidth retangulo)
+
+    let pi = 3.141592654
+    
+    let area myShape =
+        match myShape with
+        | Circle radius -> pi * radius * radius
+        | Rectangle (h, w) -> h * w
+    
+    let radius = 15.0
+    let myCircle = Circle(radius)
+    printfn "Area of circle that has radius %f: %f" radius (area myCircle)
+
+    let height, width = 5.0, 10.0
+    let myRectangle = Rectangle(height, width)
+    printfn "Area of rectangle that has height %f and width %f is %f" height width (area myRectangle)
+
     0 // return an integer exit code
 
