@@ -21,7 +21,7 @@ let asyncFetchUrl url =
         use reader = new StreamReader( stream)
         let html = reader.ReadToEnd()
         printfn "finished reading %s" url
-        html
+        return html
     }
 
 [<EntryPoint>]
