@@ -3,6 +3,7 @@
 
 open System
 open Domain
+open Combinacoes
 
 [<EntryPoint>]
 let main argv =
@@ -179,6 +180,10 @@ let main argv =
     let height, width = 5.0, 10.0
     let myRectangle = Rectangle(height, width)
     printfn "Area of rectangle that has height %f and width %f is %f" height width (area myRectangle)
+
+    let elementosABC = [1..10]
+
+    printfn "%A" (combinacoesDe4 elementosABC)
 
     0 // return an integer exit code
 
